@@ -1,4 +1,4 @@
-# Digg - PHP Mini_Project
+# Digg - PHP Mini_Project - in Process
 =========================
 
 DIGG the Blog Site that build with PHP technology.
