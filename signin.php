@@ -1,4 +1,10 @@
 <?php
+
+session_start();
+
+if( isset($_SESSION['user_id'])) { //im mehubar over la blog ve
+    header('location: blog.php');
+}
 require_once('app/helpers.php');
 
 $page_title = 'Home Page';
@@ -20,13 +26,17 @@ if ( isset($_POST['submit'])) {
         $form_valid = false;
     }
     if( $form_valid ){
+        
         $link = mysqli_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PWD, MYSQL_DB);
         $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
         $result = mysqli_query($link, $sql);
         
         if( $result && mysqli_num_rows($result) > 0 ){
 
-            $user = mysqli_fetch_assoc($result);  
+            $user = mysqli_fetch_assoc($result); 
+            $_SESSION['user_id'] = $user['id']; //Shmirat id
+            $_SESSION['user_name'] = $user['name']; //shmirat shem agolesh ahe nirsham behazlaha me hakovez she mila
+            header('location: blog.php'); // rak ahrei she pratim nishmarim mavar le ata blog
              
         } else {
             $errors['password'] = 'Your email or password is incorrect!';

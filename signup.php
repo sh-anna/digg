@@ -1,4 +1,11 @@
 <?php
+
+session_start();
+//stop logged in users from accessing login/register pages
+if( isset($_SESSION['user_id']) ){
+  header('location: blog.php');
+}
+
 require_once('app/helpers.php');
 
 $page_title = 'Home Page';
