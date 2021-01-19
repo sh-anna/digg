@@ -49,6 +49,8 @@ if ( isset($_POST['submit'])) {
         // if mysqli_query return true (no sql error) && is inserted
         if( $result && mysqli_affected_rows($link) > 0 ){
             // redirect to blog page after registration
+            $_SESSION['user_id'] = mysqli_insert_id($link);
+            $_SESSION['user_name'] = $name;
             header('location: blog.php');
         
         }
