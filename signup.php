@@ -11,6 +11,8 @@ if ( isset($_POST['submit'])) {
     $email = ! empty($_POST['email']) ? trim($_POST['email']) : '';
     $password = ! empty($_POST['password']) ? trim($_POST['password']) : '';
     $form_valid = true;
+    // connect to mysql server
+    $link = mysqli_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PWD, MYSQL_DB);
 
     // validate name field (bdika kavar be zad sharat)
     if( ! $name || mb_strlen($name)  < 2 || mb_strlen($name) > 70){
@@ -21,6 +23,9 @@ if ( isset($_POST['submit'])) {
     if(! $email ) {
         $errors['name'] = 'A valid email is required';
         $form_valid = false;
+    } elseif( email_exist($link, $email)){
+        $errors['email'] = 'Email is taken';
+        $form_valid = false;
     }
     //validate password field
     if( ! $password || strlen($password) < 6 || strlen($password) > 20){
@@ -29,8 +34,7 @@ if ( isset($_POST['submit'])) {
     }
     // if validate pass success
     if( $form_valid ){
-        // connect to mysql server
-        $link = mysqli_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PWD, MYSQL_DB);
+        
         // query for insert new user
         $sql = "INSERT INTO users VALUES(null, '$name', '$email', '$password', 'default-profile.png')";
         // execute query
