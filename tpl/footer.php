@@ -1,5 +1,5 @@
-<footer class="navbar-light p-2" style="background-color: #e3f2fd;">
-    <p class="text-center text-black m-0"> DIGG &copy; <?= date('Y'); ?></p>
+<footer class="p-2" style="background-color: #f7797d">
+    <p class="text-center text-dark m-0"> DIGG &copy; <?= date('Y'); ?></p>
 </footer>
 
 

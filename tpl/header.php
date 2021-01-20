@@ -11,11 +11,11 @@
 
 </head>
 
-<body>
+<body style="background: linear-gradient(to right, #abbaab, #ffffff,#abbaab); ">
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #f7797d">
             <div class="container">
-                <a class="navbar-brand text-darck" href="./">DIGG</a>
+                <a class="navbar-brand text-dark" href="./">DIGG</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -24,26 +24,26 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link text-darck" href="about.php">About</a>
+                            <a class="nav-link text-dark" href="about.php">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-darck" href="blog.php">Blog</a>
+                            <a class="nav-link text-dark" href="blog.php">Blog</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
                         <?php if( ! isset($_SESSION['user_id']) ): ?>
                         <li class="nav-item">
-                            <a class="nav-link text-darck" href="signin.php">Signin</a>
+                            <a class="nav-link text-dark" href="signin.php">Signin</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-darck" href="signup.php">Signup</a>
+                            <a class="nav-link text-dark" href="signup.php">Signup</a>
                         </li>
                         <?php else: ?>
                         <li class="nav-item">
-                            <a class="nav-link text-darck" href="profile.php"><?= $_SESSION['user_name']; ?></a>
+                            <a class="nav-link text-dark" href="profile.php"><?= $_SESSION['user_name']; ?></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-darck" href="logout.php">Logout</a>
+                            <a class="nav-link text-dark" href="logout.php">Logout</a>
                         </li>
                         <?php endif; ?>
                     </ul>

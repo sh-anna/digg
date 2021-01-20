@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 if( ! isset($_SESSION['user_id'])) {
@@ -36,14 +35,9 @@ if( isset($_POST['submit']) ){
         if( $result && mysqli_affected_rows($link) > 0 ){
             header('location: blog.php');
         }
-    
     }
-    
-  }
-  
-
+}
 ?>
-
 
 <?php include('tpl/header.php'); ?>
 
@@ -68,7 +62,7 @@ if( isset($_POST['submit']) ){
                             class="form-control"><?=old('article'); ?></textarea>
                         <span class="text-danger"><?= $errors['article'];?></span>
                     </div>
-                    <button type="submit" name="submit" class="btn btn-primary">Save Post</button>
+                    <button type="submit" name="submit" class="btn btn-warning">Save Post</button>
                     <a class="ml-2 btn btn-secondary" href="blog.php">Cancel</a>
                 </form>
             </div>

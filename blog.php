@@ -9,7 +9,6 @@ $sql = "SELECT u.name,u.profile_image,p.* FROM posts p
 
 $result = mysqli_query($link, $sql);
 
-
 ?>
 
 <?php include('tpl/header.php'); ?>
@@ -17,15 +16,16 @@ $result = mysqli_query($link, $sql);
 <main class="min-h-900">
     <div class="container mt-3">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 text-center">
                 <h1 class="display-4">DIGG Blog Page</h1>
                 <p>We digg and Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, illo.</p>
             </div>
         </div>
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 text-center">
                 <?php if( isset($_SESSION['user_id']) ): ?>
-                <a class="btn btn-warning" href="add_post.php">+ Add New Post</a>
+                <a class="btn" href="add_post.php" style="background-color: #c6ffdd">+ Add New
+                    Post</a>
                 <?php else: ?>
                 <span>Want to start digg?</span><br>
                 <a href="signup.php">signup now!</a>
@@ -35,12 +35,14 @@ $result = mysqli_query($link, $sql);
         <?php if( mysqli_num_rows($result) > 0 ): ?>
         <div class="row">
             <?php while($post = mysqli_fetch_assoc($result)): ?>
+
             <div class="col-12 mt-3">
-                <div class="card">
+                <div class="card text-secondary"
+                    style="background: linear-gradient(to right, #f7797d, #c6ffdd, #f7797d);">
                     <div class="card-header">
                         <img class="rounded-circle" src="images/<?= $post['profile_image']; ?>" width="50">
                         <span><?= $post['name']; ?></span>
-                        <span class="float-end"><?= $post['date']; ?></span>
+                        <span class="float-end mt-3"><?= $post['date']; ?></span>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title"><?= $post['title']; ?></h5>
