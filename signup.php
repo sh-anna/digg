@@ -60,34 +60,35 @@ if ( isset($_POST['submit'])) {
 
 <?php include('tpl/header.php'); ?>
 
-<main class="min-h-900">
+<main class="min-h-900 text-center">
     <div class="container mt-3">
-        <div class="row">
+        <div class="row mb-5">
             <div class="col-12">
                 <h1 class="display-4">Join Us and start digg for free!</h1>
                 <p>Fill your details below and signup.</p>
             </div>
         </div>
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col-lg-6">
                 <form action="" method="POST" autocomplete="off" novalidate="novalidate">
-                    <div class="mb-3">
+                    <div class="mb-4">
                         <label for="name">* Name</label>
                         <input value="<?= old('name'); ?>" type="text" name="name" id="name" class="form-control">
                         <span class="text-danger"><?= $errors['name']; ?></span>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-4">
                         <label for="email">* Email</label>
                         <input value="<?= old('email'); ?>" type="email" name="email" id="email" class="form-control">
                         <span class="text-danger"><?= $errors['email']; ?></span>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-4">
                         <label for="password">* Password</label>
                         <input type="password" name="password" id="password" class="form-control">
                         <span class="text-danger"><?= $errors['password']; ?></span>
                     </div>
-                    <div class="mb-3">
-                        <button type="submit" name="submit" class="btn btn-info">Signup</button>
+                    <div class="mb-4">
+                        <button type="submit" name="submit" class="btn"
+                            style="background-color: #c6ffdd">Signup</button>
                     </div>
                 </form>
             </div>

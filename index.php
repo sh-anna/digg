@@ -12,7 +12,8 @@ $page_title = 'Home Page';
                 <h1 class="display-4">Welcome to digg site!</h1>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                 <p class="mt-4">
-                    <a href="signup.php" class="btn btn-outline-warning">START DIGG NOW!</a>
+                    <a href="signup.php" class="btn btn-outline-danger" style="background-color: #c6ffdd">START DIGG
+                        NOW!</a>
                 </p>
             </div>
         </div>
