@@ -28,7 +28,7 @@ $result = mysqli_query($link, $sql);
                     Post</a>
                 <?php else: ?>
                 <span>Want to start digg?</span><br>
-                <a href="signup.php">signup now!</a>
+                <a class="btn" href="signup.php" style="background-color: #c6ffdd">signup now!</a>
                 <?php endif; ?>
             </div>
         </div>
