@@ -5,7 +5,7 @@ $page_title = 'Blog Page';
 $link = mysqli_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PWD, MYSQL_DB);
 $sql = "SELECT u.name,u.profile_image,p.* FROM posts p 
         JOIN users u ON u.id = p.user_id 
-        ORDER BY p.date DESC";
+        ORDER BY p.date DESC"; //represents posts from new to old
 
 $result = mysqli_query($link, $sql);
 
@@ -42,11 +42,13 @@ $result = mysqli_query($link, $sql);
                     <div class="card-header">
                         <img class="rounded-circle" src="images/<?= $post['profile_image']; ?>" width="50">
                         <span><?= $post['name']; ?></span>
-                        <span class="float-end mt-3"><?= $post['date']; ?></span>
+                        <span class="float-end mt-3"><?= date('d/m/Y H:i:s', strtotime($post['date'])); ?>
+                        </span>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title"><?= $post['title']; ?></h5>
-                        <p class="card-text"><?= $post['article']; ?></p>
+                        <p class="card-text"><?= str_replace("\n", '<br>', $post['article']); ?>
+                        </p>
                     </div>
                 </div>
             </div>
