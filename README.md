@@ -24,3 +24,7 @@ Technologies
 - Java Script & jQUERY - The programming language on the client side.
 - font awesome - icons.
 
+Sequerety
+----------
+prevent xss atack  & SQL injection
+
