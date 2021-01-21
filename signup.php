@@ -46,6 +46,12 @@ if ( isset($_POST['submit'])) {
         $errors['password'] = 'Password is required for 6-20 chars';
         $form_valid = false;
     }
+    
+    if(isset($_FILES['image']['error']) && $_FILES['image']['error'] ==0 ){
+
+
+
+    }
     // if validate pass success
     if( $form_valid ){
         //הצפנת הסיסמא
@@ -78,7 +84,7 @@ if ( isset($_POST['submit'])) {
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-6">
-                <form action="" method="POST" autocomplete="off" novalidate="novalidate">
+                <form action="" method="POST" autocomplete="off" novalidate="novalidate" enctype="multipart/form-data">
                     <div class="mb-4">
                         <label for="name">* Name</label>
                         <input value="<?= old('name'); ?>" type="text" name="name" id="name" class="form-control">
@@ -94,6 +100,14 @@ if ( isset($_POST['submit'])) {
                         <input type="password" name="password" id="password" class="form-control">
                         <span class="text-danger"><?= $errors['password']; ?></span>
                     </div>
+                    <div class="mb-3">
+                        <label for="image">Prifile Image</label>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="file" class="form-control" id="image" name="image">
+                        <label class="input-group-text" for="image">Upload</label>
+                    </div>
+
                     <div class="mb-4">
                         <button type="submit" name="submit" class="btn"
                             style="background-color: #c6ffdd">Signup</button>
