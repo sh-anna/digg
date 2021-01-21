@@ -41,13 +41,13 @@ $result = mysqli_query($link, $sql);
                     style="background: linear-gradient(to right, #f7797d, #c6ffdd, #f7797d);">
                     <div class="card-header">
                         <img class="rounded-circle" src="images/<?= $post['profile_image']; ?>" width="50">
-                        <span><?= $post['name']; ?></span>
+                        <span><?= htmlentities($post['name']); ?></span>
                         <span class="float-end mt-3"><?= date('d/m/Y H:i:s', strtotime($post['date'])); ?>
                         </span>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title"><?= $post['title']; ?></h5>
-                        <p class="card-text"><?= str_replace("\n", '<br>', $post['article']); ?>
+                        <h5 class="card-title"><?= htmlentities($post['title']); ?></h5>
+                        <p class="card-text"><?= str_replace("\n", '<br>',htmlentities( $post['article'])); ?>
                         </p>
                     </div>
                 </div>

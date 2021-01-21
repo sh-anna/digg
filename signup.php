@@ -13,13 +13,20 @@ $errors = ['name' => '', 'email' => '', 'password' => '',];
 
 //if client press on submit button
 if ( isset($_POST['submit'])) {
-    // collect data from signup form
-    $name = ! empty($_POST['name']) ? trim($_POST['name']) : '';
-    $email = ! empty($_POST['email']) ? trim($_POST['email']) : '';
-    $password = ! empty($_POST['password']) ? trim($_POST['password']) : '';
+    // collect data from signup form + דקבורןאטsequrity
+    $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+    $name = trim($name);
+    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+    $email = trim($email);
+    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+    $password = trim($password);
     $form_valid = true;
-    // connect to mysql server
+    // connect to mysql server + SQL injection order
     $link = mysqli_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PWD, MYSQL_DB);
+    $name = mysqli_real_escape_string($link, $name);
+    $email = mysqli_real_escape_string($link, $email);
+    $password = mysqli_real_escape_string($link, $password);
+  
 
     // validate name field (bdika kavar be zad sharat)
     if( ! $name || mb_strlen($name)  < 2 || mb_strlen($name) > 70){

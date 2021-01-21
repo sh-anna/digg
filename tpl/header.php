@@ -40,7 +40,8 @@
                         </li>
                         <?php else: ?>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="profile.php"><?= $_SESSION['user_name']; ?></a>
+                            <a class="nav-link text-dark"
+                                href="profile.php"><?= htmlentities($_SESSION['user_name']); ?></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="logout.php">Logout</a>

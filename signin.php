@@ -10,11 +10,13 @@ require_once('app/helpers.php');
 $page_title = 'Home Page';
 $errors = ['name' => '', 'email' => '', 'password' => '',];
 
-//if client press on submit button
+//if client press on submit button 
 if ( isset($_POST['submit'])) {
-  
-    $email = ! empty($_POST['email']) ? trim($_POST['email']) : '';
-    $password = ! empty($_POST['password']) ? trim($_POST['password']) : '';
+    //sequerety
+    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+    $email = trim($email);
+    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+    $password = trim($password);  
     $form_valid = true;
 
     if( ! $email ){
@@ -28,6 +30,8 @@ if ( isset($_POST['submit'])) {
     if( $form_valid ){
         
         $link = mysqli_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PWD, MYSQL_DB);
+        $email = mysqli_real_escape_string($link, $email);
+        $password = mysqli_real_escape_string($link, $password);
         $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
         $result = mysqli_query($link, $sql);
         

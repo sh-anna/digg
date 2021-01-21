@@ -10,9 +10,11 @@ $errors = ['title' => '', 'article' => ''];
 require_once 'app/helpers.php';
 
 if( isset($_POST['submit']) ){
-
-    $title = !empty($_POST['title']) ? trim($_POST['title']) : '';
-    $article = !empty($_POST['article']) ? trim($_POST['article']) : '';
+    //security xss
+    $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+    $title = trim($title);
+    $article = filter_input(INPUT_POST, 'article', FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+    $article = trim($article);
     $form_valid = true;
   
     if( ! $title || mb_strlen($title) < 2 ||  mb_strlen($title) > 255){
@@ -28,6 +30,8 @@ if( isset($_POST['submit']) ){
     if( $form_valid ){
 
         $link = mysqli_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PWD, MYSQL_DB);
+        $title = mysqli_real_escape_string($link, $title);
+        $article = mysqli_real_escape_string($link, $article);
         $uid = $_SESSION['user_id'];
         $sql = "INSERT INTO posts VALUES(null, $uid, '$title', '$article', NOW())";
         $result = mysqli_query($link, $sql);
