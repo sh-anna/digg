@@ -32,15 +32,21 @@ if ( isset($_POST['submit'])) {
         $link = mysqli_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PWD, MYSQL_DB);
         $email = mysqli_real_escape_string($link, $email);
         $password = mysqli_real_escape_string($link, $password);
-        $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
+        $sql = "SELECT * FROM users WHERE email = '$email'";
         $result = mysqli_query($link, $sql);
         
-        if( $result && mysqli_num_rows($result) > 0 ){
+        if( $result && mysqli_num_rows($result) == 1 ){ //==1 מקשה על SQL injection
 
             $user = mysqli_fetch_assoc($result); 
-            $_SESSION['user_id'] = $user['id']; //Shmirat id
-            $_SESSION['user_name'] = $user['name']; //shmirat shem agolesh ahe nirsham behazlaha me hakovez she mila
-            header('location: blog.php'); // rak ahrei she pratim nishmarim mavar le ata blog
+
+            if( password_verify($password, $user['password']) ){
+                $_SESSION['user_id'] = $user['id']; //Shmirat id
+                $_SESSION['user_name'] = $user['name']; //shmirat shem agolesh ahe nirsham behazlaha me hakovez she mila
+                header('location: blog.php'); // rak ahrei she pratim nishmarim mavar le ata blog   
+            } else {
+                $errors['password'] = 'Your email or password is incorrect!';
+            }
+            
              
         } else {
             $errors['password'] = 'Your email or password is incorrect!';

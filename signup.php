@@ -48,7 +48,8 @@ if ( isset($_POST['submit'])) {
     }
     // if validate pass success
     if( $form_valid ){
-        
+        //הצפנת הסיסמא
+        $password = password_hash($password, PASSWORD_BCRYPT);
         // query for insert new user
         $sql = "INSERT INTO users VALUES(null, '$name', '$email', '$password', 'default-profile.png')";
         // execute query
