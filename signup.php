@@ -9,7 +9,7 @@ if( isset($_SESSION['user_id']) ){
 require_once('app/helpers.php');
 
 $page_title = 'Home Page';
-$errors = ['name' => '', 'email' => '', 'password' => '',];
+$errors = ['name' => '', 'email' => '', 'password' => '', 'image' => ''];
 
 //if client press on submit button
 if ( isset($_POST['submit'])) {
@@ -26,6 +26,8 @@ if ( isset($_POST['submit'])) {
     $name = mysqli_real_escape_string($link, $name);
     $email = mysqli_real_escape_string($link, $email);
     $password = mysqli_real_escape_string($link, $password);
+    $image_name = 'default-profile.png';
+
   
 
     // validate name field (bdika kavar be zad sharat)
@@ -46,18 +48,47 @@ if ( isset($_POST['submit'])) {
         $errors['password'] = 'Password is required for 6-20 chars';
         $form_valid = false;
     }
+    // check if the upload image file is valid
+    if( $form_valid && isset($_FILES['image']['error']) &&  $_FILES['image']['error'] == 0){
+
+        $max_file_size = 1024 * 1024 * 5;
+        $ex = ['png', 'jpeg', 'jpg', 'gif', 'bmp'];
     
-    if(isset($_FILES['image']['error']) && $_FILES['image']['error'] ==0 ){
+        if( isset($_FILES['image']['size']) && $_FILES['image']['size'] <= $max_file_size ){
+    
+            $file_info = pathinfo($_FILES['image']['name']);
+    
+            if( in_array(strtolower($file_info['extension']), $ex) ){
+    
+                if( is_uploaded_file($_FILES['image']['tmp_name']) ){
 
+                    $image_name = date('d.m.Y.H.i.s'). generateRandomString(5);
+                    $image_name .= '-' .$_FILES['image']['name'];
+                    move_uploaded_file($_FILES['image']['tmp_name'], 'images/' . $image_name);
 
+            }
+    
+            } else {
+            $form_valid = false;
+            $errors['image'] = 'Image must be an image';
+            }
+            } else {
+                $form_valid = false;
+                $errors['image'] = 'Image must be max 5MB';
+            }
+    
+            } elseif(isset($_FILES['image']['error']) &&  $_FILES['image']['error'] != 4){
+                $form_valid = false;
+                $errors['image'] = 'There is an error with your image file';
+            }
+      
 
-    }
     // if validate pass success
     if( $form_valid ){
         //הצפנת הסיסמא
         $password = password_hash($password, PASSWORD_BCRYPT);
         // query for insert new user
-        $sql = "INSERT INTO users VALUES(null, '$name', '$email', '$password', 'default-profile.png')";
+        $sql = "INSERT INTO users VALUES(null, '$name', '$email', '$password', '$image_name')";
         // execute query
         $result = mysqli_query($link, $sql);
         // if mysqli_query return true (no sql error) && is inserted
@@ -66,7 +97,6 @@ if ( isset($_POST['submit'])) {
             $_SESSION['user_id'] = mysqli_insert_id($link);
             $_SESSION['user_name'] = $name;
             header('location: blog.php');
-        
         }
     }
 }
@@ -106,6 +136,9 @@ if ( isset($_POST['submit'])) {
                     <div class="input-group mb-3">
                         <input type="file" class="form-control" id="image" name="image">
                         <label class="input-group-text" for="image">Upload</label>
+                    </div>
+                    <div class="mb-3">
+                        <span class="text-danger"><?= $errors['image']; ?></span>
                     </div>
 
                     <div class="mb-4">

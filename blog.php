@@ -49,6 +49,26 @@ $result = mysqli_query($link, $sql);
                         <h5 class="card-title"><?= htmlentities($post['title']); ?></h5>
                         <p class="card-text"><?= str_replace("\n", '<br>',htmlentities( $post['article'])); ?>
                         </p>
+
+                        <!-- Dropdown -->
+                        <?php if(isset($_SESSION['user_id']) && $_SESSION['user_id'] == $post['user_id'] ): ?>
+
+
+                        <div class="dropdown float-end">
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Post Options
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="edit_post.php">Edit</a></li>
+                                <li><a id="delete-post-btn" class="dropdown-item"
+                                        href="delete_post.php?pid=<?= $post['id']; ?>">
+                                        Delete
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
