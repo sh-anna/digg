@@ -60,7 +60,9 @@ $result = mysqli_query($link, $sql);
                                 Post Options
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <li><a class="dropdown-item" href="edit_post.php">Edit</a></li>
+                                <li><a id="edit-post-btn" class="dropdown-item"
+                                        href="edit_post.php?pid=<?= $post['id']; ?>">Edit</a>
+                                </li>
                                 <li><a id="delete-post-btn" class="dropdown-item"
                                         href="delete_post.php?pid=<?= $post['id']; ?>">
                                         Delete

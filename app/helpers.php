@@ -25,3 +25,24 @@ function email_exist($link, $email){
     return $exist;
 
 }
+
+//random name for image
+function generateRandomString($length = 30) {
+   
+    $characters = '0123456789';
+    $characters .= 'abcdefghijklmnopqrstuvwxyz';
+    $characters .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+     
+    $max = strlen($characters) - 1;
+    $randomString = '';
+   
+    for ($x = 0; $x < $length; $x++) {
+       
+      $randomString .= $characters[ rand(0, $max) ];
+       
+    }
+   
+    return $randomString;
+     
+  }
+  
